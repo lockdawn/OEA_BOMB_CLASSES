@@ -11,11 +11,12 @@ Con esto se simulan zonas minadas dinámicas, evitando tener que colocar manualm
 - Escenarios dinámicos donde los jugadores no repitan siempre la misma experiencia, ya que las minas cambian de ubicación en cada activación.
 
 # ¿Cómo se usa?
-1. Crear un trigger en el editor.
-2. Configurar el trigger para detectar **BLUFOR PRESENT**.
-3. Configurar el trigger como **REPEATABLE**.
-4. Configurar el trigger como **SERVER ONLY**.
-5. En el campo On Activation del trigger, llamar la función:
+1. Copia y pega el script dentro del archivo `init.sqf`.
+2. Crear un trigger en el editor.
+3. Configurar el trigger para detectar **BLUFOR PRESENT**.
+4. Configurar el trigger como **REPEATABLE**.
+5. Configurar el trigger como **SERVER ONLY**.
+6. En el campo On Activation del trigger, llamar la función:
     ```
     if (isServer) then {
         [thisTrigger,20] call OEA_fnc_spawnBombsInTrigger;
@@ -27,7 +28,7 @@ Con esto se simulan zonas minadas dinámicas, evitando tener que colocar manualm
     - `thisTrigger` → es el área del trigger.
     - 20 → número de minas a generar.
 
-4. En On Deactivation, limpiar las minas:
+7. En On Deactivation, limpiar las minas:
     ```
     if (isServer) then {
       [thisTrigger] call OEA_fnc_deleteBombsInTrigger;
@@ -114,8 +115,7 @@ Su diseño basado en triggers y ejecución en el servidor garantiza un bajo impa
 Ideal para escenarios dinámicos donde la incertidumbre y la optimización son clave.
 
 # Notas finales y buenas prácticas
-- Repeatable puede quedar en Yes si quieres que vuelva a activarse tras desactivación.
+- Repeatable puede quedar en Yes si quieres que el trigger vuelva a activarse tras desactivación.
 - Evita valores excesivos (20–40 minas por trigger es razonable).
-- `createMine` sincroniza objetos a clientes; usa `isServer` para evitar duplicados.
+- `createMine` sincroniza objetos a clientes; por eso se usa `isServer` para evitar duplicados.
 - El flag `OEA_bombs_spawned_flag` impide que múltiples activaciones simultáneas generen sets extra.
-- Si quieres previnir spawns si ya hay minas globales, puedo agregar una cuenta global máxima.
