@@ -37,10 +37,10 @@ if (isServer) then {
 
 # Factores de impacto en el rendimiento
 1. Creación de objetos (minas)
- - Cada `createMine` genera un objeto con IA mínima (tiene sensores para detectar jugadores, armas, explosión).
- - 20 minas ≈ 20 entidades más que el servidor debe simular.
- - 100 minas distribuidas en el mapa ya empiezan a notarse, pero no tanto como 100 soldados IA.
- - Comparado con tropas enemigas, las minas son baratas en rendimiento.
+    - Cada `createMine` genera un objeto con IA mínima (tiene sensores para detectar jugadores, armas, explosión).
+    - 20 minas ≈ 20 entidades más que el servidor debe simular.
+    - 100 minas distribuidas en el mapa ya empiezan a notarse, pero no tanto como 100 soldados IA.
+    - Comparado con tropas enemigas, las minas son baratas en rendimiento.
 2. Bucle de generación (`while`)
 -Está limitado: intenta varias posiciones hasta llegar al número solicitado.
 - Se ejecuta en un spawn, así que no congela el servidor.
