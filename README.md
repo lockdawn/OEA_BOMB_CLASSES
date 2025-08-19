@@ -16,24 +16,24 @@ Con esto se simulan zonas minadas dinámicas, evitando tener que colocar manualm
 3. Configurar el trigger como **REPEATABLE**.
 4. Configurar el trigger como **SERVER ONLY**.
 5. En el campo On Activation del trigger, llamar la función:
-```
-if (isServer) then {
-    [thisTrigger,20] call OEA_fnc_spawnBombsInTrigger;
-} else {
-    [thisTrigger,20] remoteExecCall ["OEA_fnc_spawnBombsInTrigger",2];
-};
-```
-Donde:
-- `thisTrigger` → es el área del trigger.
-- 20 → número de minas a generar.
-4. En On Deactivation, limpiar las minas:
-```
-if (isServer) then {
-  [thisTrigger] call OEA_fnc_deleteBombsInTrigger;
-} else {
-  [thisTrigger] remoteExecCall ["OEA_fnc_deleteBombsInTrigger", 2];
-};
-```
+    ```
+    if (isServer) then {
+        [thisTrigger,20] call OEA_fnc_spawnBombsInTrigger;
+    } else {
+        [thisTrigger,20] remoteExecCall ["OEA_fnc_spawnBombsInTrigger",2];
+    };
+    ```
+    Donde:
+        - `thisTrigger` → es el área del trigger.
+        - 20 → número de minas a generar.
+    4. En On Deactivation, limpiar las minas:
+    ```
+    if (isServer) then {
+      [thisTrigger] call OEA_fnc_deleteBombsInTrigger;
+    } else {
+      [thisTrigger] remoteExecCall ["OEA_fnc_deleteBombsInTrigger", 2];
+    };
+    ```
 
 # Factores de impacto en el rendimiento
 1. Creación de objetos (minas)
@@ -42,15 +42,15 @@ if (isServer) then {
     - 100 minas distribuidas en el mapa ya empiezan a notarse, pero no tanto como 100 soldados IA.
     - Comparado con tropas enemigas, las minas son baratas en rendimiento.
 2. Bucle de generación (`while`)
--Está limitado: intenta varias posiciones hasta llegar al número solicitado.
-- Se ejecuta en un spawn, así que no congela el servidor.
-- Cada intento hace sleep corto → reparte carga, no genera lag pico.
+    - Está limitado: intenta varias posiciones hasta llegar al número solicitado.
+    - Se ejecuta en un spawn, así que no congela el servidor.
+    - Cada intento hace sleep corto → reparte carga, no genera lag pico.
 3. Eliminación de minas
-- `deleteVehicle` es ligero, limpia bien la memoria y la red.
-- Como las minas se borran al salir del trigger, no se acumulan.
+    - `deleteVehicle` es ligero, limpia bien la memoria y la red.
+    - Como las minas se borran al salir del trigger, no se acumulan.
 4. Sin sincronización pesada en red
-- Como las minas existen solo en el servidor (isServer check), los clientes solo reciben los objetos colocados, no el cálculo.
-- Eso mantiene el rendimiento estable en los jugadores.
+    - Como las minas existen solo en el servidor (isServer check), los clientes solo reciben los objetos colocados, no el cálculo.
+    - Eso mantiene el rendimiento estable en los jugadores.
 
 # En números aproximados
 - 10–30 minas activas: impacto casi nulo (<1% uso CPU adicional).
