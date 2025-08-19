@@ -12,8 +12,10 @@ Con esto se simulan zonas minadas dinámicas, evitando tener que colocar manualm
 
 # ¿Cómo se usa?
 1. Crear un trigger en el editor.
-2. Configurar el trigger para detectar BLUFOR PRESENT.
-3. En el campo On Activation del trigger, llamar la función:
+2. Configurar el trigger para detectar **BLUFOR PRESENT**.
+3. Configurar el trigger como **REPEATABLE**.
+4. Configurar el trigger como **SERVER ONLY**.
+5. En el campo On Activation del trigger, llamar la función:
 ```
 if (isServer) then {
     [thisTrigger,20] call OEA_fnc_spawnBombsInTrigger;
