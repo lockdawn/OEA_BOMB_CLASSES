@@ -22,7 +22,7 @@ if (isServer) then {
 };
 ```
 Donde:
-- thisTrigger → es el área del trigger.
+- `thisTrigger` → es el área del trigger.
 - 20 → número de minas a generar.
 4. En On Deactivation, limpiar las minas:
 ```
