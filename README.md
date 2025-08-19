@@ -27,7 +27,7 @@ Con esto se simulan zonas minadas dinámicas, evitando tener que colocar manualm
         - `thisTrigger` → es el área del trigger.
         - 20 → número de minas a generar.
 
-    4. En On Deactivation, limpiar las minas:
+4. En On Deactivation, limpiar las minas:
     ```
     if (isServer) then {
       [thisTrigger] call OEA_fnc_deleteBombsInTrigger;
